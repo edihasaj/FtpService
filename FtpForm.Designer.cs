@@ -47,12 +47,14 @@
             this.label9 = new System.Windows.Forms.Label();
             this.LastBackupLbl = new System.Windows.Forms.Label();
             this.StatusLbl = new System.Windows.Forms.Label();
+            this.SaveBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // HostnameTxt
             // 
             this.HostnameTxt.Location = new System.Drawing.Point(12, 58);
             this.HostnameTxt.Name = "HostnameTxt";
+            this.HostnameTxt.PlaceholderText = "sftp://";
             this.HostnameTxt.Size = new System.Drawing.Size(157, 23);
             this.HostnameTxt.TabIndex = 0;
             this.HostnameTxt.TextChanged += new System.EventHandler(this.HostnameTxt_TextChanged);
@@ -61,6 +63,7 @@
             // 
             this.UsernameTxt.Location = new System.Drawing.Point(175, 58);
             this.UsernameTxt.Name = "UsernameTxt";
+            this.UsernameTxt.PlaceholderText = "filan";
             this.UsernameTxt.Size = new System.Drawing.Size(157, 23);
             this.UsernameTxt.TabIndex = 1;
             this.UsernameTxt.TextChanged += new System.EventHandler(this.UsernameTxt_TextChanged);
@@ -113,15 +116,17 @@
             // 
             this.PortTxt.Location = new System.Drawing.Point(502, 58);
             this.PortTxt.Name = "PortTxt";
+            this.PortTxt.PlaceholderText = "21";
             this.PortTxt.Size = new System.Drawing.Size(78, 23);
             this.PortTxt.TabIndex = 6;
             this.PortTxt.TextChanged += new System.EventHandler(this.PortTxt_TextChanged);
             // 
             // PathListTxt
             // 
-            this.PathListTxt.Location = new System.Drawing.Point(12, 115);
+            this.PathListTxt.Location = new System.Drawing.Point(12, 124);
             this.PathListTxt.Multiline = true;
             this.PathListTxt.Name = "PathListTxt";
+            this.PathListTxt.PlaceholderText = "C:/Users/Geocad/Desktop;C:/;D:/directory";
             this.PathListTxt.Size = new System.Drawing.Size(568, 117);
             this.PathListTxt.TabIndex = 8;
             this.PathListTxt.TextChanged += new System.EventHandler(this.PathListTxt_TextChanged);
@@ -129,7 +134,7 @@
             // StartBtn
             // 
             this.StartBtn.ForeColor = System.Drawing.Color.Blue;
-            this.StartBtn.Location = new System.Drawing.Point(459, 341);
+            this.StartBtn.Location = new System.Drawing.Point(459, 350);
             this.StartBtn.Name = "StartBtn";
             this.StartBtn.Size = new System.Drawing.Size(118, 37);
             this.StartBtn.TabIndex = 9;
@@ -140,7 +145,7 @@
             // StopBtn
             // 
             this.StopBtn.ForeColor = System.Drawing.Color.Red;
-            this.StopBtn.Location = new System.Drawing.Point(335, 341);
+            this.StopBtn.Location = new System.Drawing.Point(335, 350);
             this.StopBtn.Name = "StopBtn";
             this.StopBtn.Size = new System.Drawing.Size(118, 37);
             this.StopBtn.TabIndex = 10;
@@ -151,7 +156,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 97);
+            this.label5.Location = new System.Drawing.Point(12, 106);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(199, 15);
             this.label5.TabIndex = 11;
@@ -160,7 +165,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 245);
+            this.label6.Location = new System.Drawing.Point(12, 254);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 15);
             this.label6.TabIndex = 12;
@@ -168,9 +173,10 @@
             // 
             // ResponseTxt
             // 
-            this.ResponseTxt.Location = new System.Drawing.Point(13, 263);
+            this.ResponseTxt.Location = new System.Drawing.Point(13, 272);
             this.ResponseTxt.Multiline = true;
             this.ResponseTxt.Name = "ResponseTxt";
+            this.ResponseTxt.ReadOnly = true;
             this.ResponseTxt.Size = new System.Drawing.Size(568, 47);
             this.ResponseTxt.TabIndex = 13;
             this.ResponseTxt.TextChanged += new System.EventHandler(this.ResponseTxt_TextChanged);
@@ -178,7 +184,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(17, 326);
+            this.label7.Location = new System.Drawing.Point(17, 335);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(76, 15);
             this.label7.TabIndex = 14;
@@ -187,7 +193,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(17, 352);
+            this.label8.Location = new System.Drawing.Point(17, 361);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(45, 15);
             this.label8.TabIndex = 15;
@@ -205,7 +211,7 @@
             // LastBackupLbl
             // 
             this.LastBackupLbl.AutoSize = true;
-            this.LastBackupLbl.Location = new System.Drawing.Point(93, 326);
+            this.LastBackupLbl.Location = new System.Drawing.Point(93, 335);
             this.LastBackupLbl.Name = "LastBackupLbl";
             this.LastBackupLbl.Size = new System.Drawing.Size(0, 15);
             this.LastBackupLbl.TabIndex = 17;
@@ -213,16 +219,28 @@
             // StatusLbl
             // 
             this.StatusLbl.AutoSize = true;
-            this.StatusLbl.Location = new System.Drawing.Point(93, 352);
+            this.StatusLbl.Location = new System.Drawing.Point(93, 361);
             this.StatusLbl.Name = "StatusLbl";
             this.StatusLbl.Size = new System.Drawing.Size(0, 15);
             this.StatusLbl.TabIndex = 18;
+            // 
+            // SaveBtn
+            // 
+            this.SaveBtn.ForeColor = System.Drawing.Color.Lime;
+            this.SaveBtn.Location = new System.Drawing.Point(478, 87);
+            this.SaveBtn.Name = "SaveBtn";
+            this.SaveBtn.Size = new System.Drawing.Size(99, 23);
+            this.SaveBtn.TabIndex = 19;
+            this.SaveBtn.Text = "Save";
+            this.SaveBtn.UseVisualStyleBackColor = true;
+            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
             // 
             // FtpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 393);
+            this.ClientSize = new System.Drawing.Size(593, 401);
+            this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.StatusLbl);
             this.Controls.Add(this.LastBackupLbl);
             this.Controls.Add(this.label9);
@@ -271,5 +289,6 @@
         private Label label9;
         private Label LastBackupLbl;
         private Label StatusLbl;
+        private Button SaveBtn;
     }
 }

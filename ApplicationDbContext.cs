@@ -5,6 +5,7 @@ namespace FtpService;
 public class ApplicationDbContext : DbContext
 {
     public string DbPath { get; }
+    public DbSet<Configuration> Configurations { get; set; }
     public DbSet<Backup> Backups { get; set; }
 
     public ApplicationDbContext()
