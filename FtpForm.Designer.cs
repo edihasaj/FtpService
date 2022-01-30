@@ -28,45 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.HostnameTxt = new System.Windows.Forms.TextBox();
+            this.UsernameTxt = new System.Windows.Forms.TextBox();
+            this.PasswordTxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.PortTxt = new System.Windows.Forms.TextBox();
+            this.PathListTxt = new System.Windows.Forms.TextBox();
+            this.StartBtn = new System.Windows.Forms.Button();
+            this.StopBtn = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.ResponseTxt = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.LastBackupLbl = new System.Windows.Forms.Label();
+            this.StatusLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // HostnameTxt
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 58);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(157, 23);
-            this.textBox1.TabIndex = 0;
+            this.HostnameTxt.Location = new System.Drawing.Point(12, 58);
+            this.HostnameTxt.Name = "HostnameTxt";
+            this.HostnameTxt.Size = new System.Drawing.Size(157, 23);
+            this.HostnameTxt.TabIndex = 0;
+            this.HostnameTxt.TextChanged += new System.EventHandler(this.HostnameTxt_TextChanged);
             // 
-            // textBox2
+            // UsernameTxt
             // 
-            this.textBox2.Location = new System.Drawing.Point(175, 58);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(157, 23);
-            this.textBox2.TabIndex = 1;
+            this.UsernameTxt.Location = new System.Drawing.Point(175, 58);
+            this.UsernameTxt.Name = "UsernameTxt";
+            this.UsernameTxt.Size = new System.Drawing.Size(157, 23);
+            this.UsernameTxt.TabIndex = 1;
+            this.UsernameTxt.TextChanged += new System.EventHandler(this.UsernameTxt_TextChanged);
             // 
-            // textBox3
+            // PasswordTxt
             // 
-            this.textBox3.Location = new System.Drawing.Point(338, 58);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(157, 23);
-            this.textBox3.TabIndex = 2;
+            this.PasswordTxt.Location = new System.Drawing.Point(338, 58);
+            this.PasswordTxt.Name = "PasswordTxt";
+            this.PasswordTxt.Size = new System.Drawing.Size(157, 23);
+            this.PasswordTxt.TabIndex = 2;
+            this.PasswordTxt.TextChanged += new System.EventHandler(this.PasswordTxt_TextChanged);
             // 
             // label1
             // 
@@ -104,40 +109,44 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Port";
             // 
-            // textBox4
+            // PortTxt
             // 
-            this.textBox4.Location = new System.Drawing.Point(502, 58);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(78, 23);
-            this.textBox4.TabIndex = 6;
+            this.PortTxt.Location = new System.Drawing.Point(502, 58);
+            this.PortTxt.Name = "PortTxt";
+            this.PortTxt.Size = new System.Drawing.Size(78, 23);
+            this.PortTxt.TabIndex = 6;
+            this.PortTxt.TextChanged += new System.EventHandler(this.PortTxt_TextChanged);
             // 
-            // textBox5
+            // PathListTxt
             // 
-            this.textBox5.Location = new System.Drawing.Point(12, 115);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(568, 117);
-            this.textBox5.TabIndex = 8;
+            this.PathListTxt.Location = new System.Drawing.Point(12, 115);
+            this.PathListTxt.Multiline = true;
+            this.PathListTxt.Name = "PathListTxt";
+            this.PathListTxt.Size = new System.Drawing.Size(568, 117);
+            this.PathListTxt.TabIndex = 8;
+            this.PathListTxt.TextChanged += new System.EventHandler(this.PathListTxt_TextChanged);
             // 
-            // button1
+            // StartBtn
             // 
-            this.button1.ForeColor = System.Drawing.Color.Blue;
-            this.button1.Location = new System.Drawing.Point(459, 341);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 37);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
+            this.StartBtn.ForeColor = System.Drawing.Color.Blue;
+            this.StartBtn.Location = new System.Drawing.Point(459, 341);
+            this.StartBtn.Name = "StartBtn";
+            this.StartBtn.Size = new System.Drawing.Size(118, 37);
+            this.StartBtn.TabIndex = 9;
+            this.StartBtn.Text = "Start";
+            this.StartBtn.UseVisualStyleBackColor = true;
+            this.StartBtn.Click += new System.EventHandler(this.StartBtn_Click);
             // 
-            // button2
+            // StopBtn
             // 
-            this.button2.ForeColor = System.Drawing.Color.Red;
-            this.button2.Location = new System.Drawing.Point(335, 341);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(118, 37);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Stop";
-            this.button2.UseVisualStyleBackColor = true;
+            this.StopBtn.ForeColor = System.Drawing.Color.Red;
+            this.StopBtn.Location = new System.Drawing.Point(335, 341);
+            this.StopBtn.Name = "StopBtn";
+            this.StopBtn.Size = new System.Drawing.Size(118, 37);
+            this.StopBtn.TabIndex = 10;
+            this.StopBtn.Text = "Stop";
+            this.StopBtn.UseVisualStyleBackColor = true;
+            this.StopBtn.Click += new System.EventHandler(this.StopBtn_Click);
             // 
             // label5
             // 
@@ -157,13 +166,14 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "Response";
             // 
-            // textBox6
+            // ResponseTxt
             // 
-            this.textBox6.Location = new System.Drawing.Point(13, 263);
-            this.textBox6.Multiline = true;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(568, 47);
-            this.textBox6.TabIndex = 13;
+            this.ResponseTxt.Location = new System.Drawing.Point(13, 263);
+            this.ResponseTxt.Multiline = true;
+            this.ResponseTxt.Name = "ResponseTxt";
+            this.ResponseTxt.Size = new System.Drawing.Size(568, 47);
+            this.ResponseTxt.TabIndex = 13;
+            this.ResponseTxt.TextChanged += new System.EventHandler(this.ResponseTxt_TextChanged);
             // 
             // label7
             // 
@@ -192,30 +202,49 @@
             this.label9.TabIndex = 16;
             this.label9.Text = "Backup data";
             // 
-            // FtpServiceForm
+            // LastBackupLbl
+            // 
+            this.LastBackupLbl.AutoSize = true;
+            this.LastBackupLbl.Location = new System.Drawing.Point(93, 326);
+            this.LastBackupLbl.Name = "LastBackupLbl";
+            this.LastBackupLbl.Size = new System.Drawing.Size(0, 15);
+            this.LastBackupLbl.TabIndex = 17;
+            // 
+            // StatusLbl
+            // 
+            this.StatusLbl.AutoSize = true;
+            this.StatusLbl.Location = new System.Drawing.Point(93, 352);
+            this.StatusLbl.Name = "StatusLbl";
+            this.StatusLbl.Size = new System.Drawing.Size(0, 15);
+            this.StatusLbl.TabIndex = 18;
+            // 
+            // FtpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(593, 393);
+            this.Controls.Add(this.StatusLbl);
+            this.Controls.Add(this.LastBackupLbl);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.ResponseTxt);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.StopBtn);
+            this.Controls.Add(this.StartBtn);
+            this.Controls.Add(this.PathListTxt);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.PortTxt);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Name = "FtpServiceForm";
+            this.Controls.Add(this.PasswordTxt);
+            this.Controls.Add(this.UsernameTxt);
+            this.Controls.Add(this.HostnameTxt);
+            this.Name = "FtpForm";
             this.Text = "Geocad Backup";
+            this.Load += new System.EventHandler(this.FtpForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,22 +252,24 @@
 
         #endregion
 
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox HostnameTxt;
+        private TextBox UsernameTxt;
+        private TextBox PasswordTxt;
         private Label label1;
         private Label label2;
         private Label label3;
         private Label label4;
-        private TextBox textBox4;
-        private TextBox textBox5;
-        private Button button1;
-        private Button button2;
+        private TextBox PortTxt;
+        private TextBox PathListTxt;
+        private Button StartBtn;
+        private Button StopBtn;
         private Label label5;
         private Label label6;
-        private TextBox textBox6;
+        private TextBox ResponseTxt;
         private Label label7;
         private Label label8;
         private Label label9;
+        private Label LastBackupLbl;
+        private Label StatusLbl;
     }
 }
