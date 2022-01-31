@@ -1,3 +1,5 @@
+using Serilog;
+
 namespace FtpService
 {
     internal static class Program
@@ -11,6 +13,13 @@ namespace FtpService
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File("Logs\\FtpForm.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+            
             Application.Run(new FtpForm());
         }
     }
