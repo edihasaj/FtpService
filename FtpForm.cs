@@ -31,6 +31,7 @@ namespace FtpService
         {
             PasswordTxt.PasswordChar = '*';
             GetConfig();
+            GetLastBackup();
         }
 
         private void HostnameTxt_TextChanged(object sender, EventArgs e)
@@ -103,6 +104,19 @@ namespace FtpService
             SetupClientFtp();
         }
 
+        private void GetLastBackup()
+        {
+            using var db = new ApplicationDbContext();
+            Log.Information("Database path: {db.DbPath}", db.DbPath);
+
+            var backup = db.Backups.OrderByDescending(c => c.CreatedAt).FirstOrDefault();
+            if (backup == null) return;
+
+            ResponseTxt.Text = backup.Response;
+            LastBackupLbl.Text = backup.CreatedAt.ToString(CultureInfo.InvariantCulture);
+            StatusLbl.Text = backup.Status;
+        }
+
         private void UsernameTxt_TextChanged(object sender, EventArgs e)
         {
         }
@@ -168,6 +182,7 @@ namespace FtpService
                 }
 
                 ResponseTxt.Text = "Ftp is connected. Starting the backup";
+                var results = new List<FtpResult>();
 
                 foreach (var path in pathList)
                 {
@@ -194,11 +209,18 @@ namespace FtpService
                             return;
                         }
                     }
-                    
-                    var results = _ftpClient.UploadDirectory(path,
+
+                    var count = 10;
+                    results = _ftpClient.UploadDirectory(path,
                         directory, progress: progress =>
                     {
-                        StatusLbl.Text = progress.Progress.ToString(CultureInfo.InvariantCulture);
+                        if (count == 0)
+                        {
+                            StatusLbl.Text = progress.Progress.ToString(CultureInfo.InvariantCulture);
+                            count = 2;
+                        }
+
+                        count--;
                     });
 
                     if (results.Any(r => r.IsFailed))
@@ -214,6 +236,9 @@ namespace FtpService
                 }
                 
                 ResponseTxt.Text = "Backup done 👌😁";
+                InsertBackup(string.Join(";  ", JsonSerializer.Serialize(
+                        results.Select(r => r.ToListItem(true)))),
+                    StatusLbl.Text);
             }
             catch (Exception e)
             {
@@ -226,6 +251,18 @@ namespace FtpService
                 if (_ftpClient.IsConnected)
                     _ftpClient.Disconnect();
             }
+        }
+
+        private static void InsertBackup(string response, string status)
+        {
+            using var db = new ApplicationDbContext();
+            db.Backups.Add(new Backup()
+            {
+                Response = response,
+                Status = status,
+                CreatedAt = DateTime.Now
+            });
+            db.SaveChanges();
         }
     }
 }
