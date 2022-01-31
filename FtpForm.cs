@@ -48,7 +48,7 @@ namespace FtpService
                 config.HostName = HostnameTxt.Text;
                 config.UserName = UsernameTxt.Text;
                 config.Password = PasswordTxt.Text;
-                config.Port = int.Parse(PortTxt.Text ?? "21");
+                config.Port = string.IsNullOrEmpty(config.Port.ToString()) ? config.Port : 21;
                 config.PathList = PathListTxt.Text;
             }
             else
@@ -69,6 +69,17 @@ namespace FtpService
 
             db.SaveChanges();
             _configuration = config;
+
+            SetupClientFtp();
+        }
+
+        private void SetupClientFtp()
+        {
+            _ftpClient = new FtpClient(_configuration.HostName, _configuration.Port, 
+                _configuration.UserName, _configuration.Password);
+            _ftpClient.EncryptionMode = FtpEncryptionMode.Auto;
+            _ftpClient.ValidateAnyCertificate = true;
+            _ftpClient.DataConnectionType = FtpDataConnectionType.PASV;
         }
 
         private void GetConfig()
@@ -88,11 +99,8 @@ namespace FtpService
             
             if (string.IsNullOrEmpty(_configuration.HostName) || string.IsNullOrEmpty(_configuration.UserName) ||
                 string.IsNullOrEmpty(_configuration.Password)) return;
-            
-            _ftpClient = new FtpClient(_configuration.HostName, _configuration.Port, 
-                _configuration.UserName, _configuration.Password);
-            _ftpClient.EncryptionMode = FtpEncryptionMode.Auto;
-            _ftpClient.ValidateAnyCertificate = true;
+
+            SetupClientFtp();
         }
 
         private void UsernameTxt_TextChanged(object sender, EventArgs e)
@@ -126,12 +134,14 @@ namespace FtpService
                 string.IsNullOrEmpty(_configuration.Password))
             {
                 MessageBox.Show("Please provide FTP configuration");
+                Log.Warning("Please provide FTP configuration");
                 return;
             }
             
-            if (string.IsNullOrEmpty(_configuration.PathList) || _configuration.PathList?.Length <= 0)
+            if (string.IsNullOrEmpty(_configuration.PathList) || _configuration.PathList.Length <= 0)
             {
                 MessageBox.Show("Please provide valid path");
+                Log.Warning("Please provide valid path");
                 return;
             }
 
@@ -139,6 +149,7 @@ namespace FtpService
             if (0 >= pathList.Count)
             {
                 MessageBox.Show("Please provide valid path");
+                Log.Warning("Please provide valid path");
                 return;
             }
             
@@ -150,7 +161,7 @@ namespace FtpService
                     _ftpClient.Connect();
                 if (!_ftpClient.IsConnected)
                 {
-                    Log.Information("Ftp not connected, try again. Config: {Config}", 
+                    Log.Warning("Ftp not connected, try again. Config: {Config}", 
                         JsonSerializer.Serialize(_configuration));
                     ResponseTxt.Text = "Ftp could not be connected. Try again";
                     return;
@@ -161,7 +172,7 @@ namespace FtpService
                 foreach (var path in pathList)
                 {
                     var pathFolder = path.Split("/");
-                    if (pathFolder.Length <= 0)
+                    if (pathFolder.Length <= 1)
                         pathFolder = path.Split("\\");
                     if (pathFolder.Length <= 0)
                     {
@@ -171,14 +182,38 @@ namespace FtpService
                     
                     Log.Information("Uploading path: {Path}", path);
                     ResponseTxt.Text = $"Uploading path: {path}";
+
+                    var directory = $"upload/backup/{pathFolder[^1]}";
+                    if (!_ftpClient.DirectoryExists(directory))
+                    {
+                        var createResponse = _ftpClient.CreateDirectory(directory);
+                        if (!createResponse)
+                        {
+                            Log.Warning("Could not create folder in FTP");
+                            MessageBox.Show("Could not create folder in FTP");
+                            return;
+                        }
+                    }
                     
-                    _ftpClient.UploadDirectory(path, $"backup/{pathFolder[^1]}", progress: progress =>
+                    var results = _ftpClient.UploadDirectory(path,
+                        directory, progress: progress =>
                     {
                         StatusLbl.Text = progress.Progress.ToString(CultureInfo.InvariantCulture);
                     });
-                    
+
+                    if (results.Any(r => r.IsFailed))
+                    {
+                        ResponseTxt.Text = string.Join(";   ", results.Where(r => r.IsFailed)
+                            .Select(r => r.Exception.Message));
+                        Log.Error(ResponseTxt.Text, results);
+                    }
+
+                    ResponseTxt.Text = "Successfully uploaded folder";
                     Log.Information("Uploading path: {Path} successful", path);
+                    Thread.Sleep(1000);
                 }
+                
+                ResponseTxt.Text = "Backup done 👌😁";
             }
             catch (Exception e)
             {
