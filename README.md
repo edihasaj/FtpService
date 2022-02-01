@@ -7,4 +7,4 @@ And hit start :)
 
 Enjoy();
 
-Scr![image](https://user-images.githubusercontent.com/34984294/152006765-7b2e5b45-0723-4cca-85c3-bd5bc00a0601.png)
+![image](https://user-images.githubusercontent.com/34984294/152006765-7b2e5b45-0723-4cca-85c3-bd5bc00a0601.png)
