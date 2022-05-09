@@ -8,6 +8,5 @@
         public string Password { get; set; }
         public int Port { get; set; }
         public string PathList { get; set; }
-        public string PathList { get; set; }
     }
 }
